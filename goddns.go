@@ -3,8 +3,8 @@ package main
 import (
 	"bytes"
 	"flag"
-	"github.com/hugomd/cloudflare-ddns/lib/providers"
-	_ "github.com/hugomd/cloudflare-ddns/lib/providers/_all"
+	"goddns/lib/providers"
+	_ "goddns/lib/providers/_all"
 	"io/ioutil"
 	"log"
 	"net/http"

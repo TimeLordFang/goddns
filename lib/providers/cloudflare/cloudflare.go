@@ -2,7 +2,7 @@ package cloudflare
 
 import (
 	"errors"
-	"github.com/hugomd/cloudflare-ddns/lib/providers"
+	"goddns/lib/providers"
 	"log"
 	"os"
 )
