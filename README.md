@@ -1,5 +1,4 @@
-# Dynamic DNS
-[![](https://images.microbadger.com/badges/image/hugomd/cloudflare-ddns.svg)](https://microbadger.com/images/hugomd/cloudflare-ddns "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/hugomd/cloudflare-ddns.svg)](https://microbadger.com/images/hugomd/cloudflare-ddns "Get your own version badge on microbadger.com") 
+# Go DDNS or God DNS
 
 > Updates a given a DNS record with your current IP
 
