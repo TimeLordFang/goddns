@@ -1,7 +1,6 @@
 package cloudflare
 
 import (
-	"errors"
 	"goddns/lib/providers"
 	"log"
 	"os"
@@ -45,7 +44,7 @@ func NewProvider() (providers.Provider, error) {
 	}
 
 	api, err := NewCloudflareClient(APITOKEN, ZONEID, HOST)
-  
+
 	if err != nil {
 		return nil, err
 	}
@@ -55,6 +54,21 @@ func NewProvider() (providers.Provider, error) {
 	}
 
 	return provider, nil
+}
+
+func (api *Cloudflare) AddRecord(name, ip string) error {
+	record := Record{
+		Type:    "A",
+		Content: ip,
+		Name:    name,
+		TTL:     600,
+		Proxied: false,
+	}
+	err := api.client.AddDNSRecord(record)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (api *Cloudflare) UpdateRecord(ip string) error {
@@ -71,7 +85,12 @@ func (api *Cloudflare) UpdateRecord(ip string) error {
 	}
 
 	if record == (Record{}) {
-		return errors.New("Host not found")
+		err = api.AddRecord(HOST, ip)
+		if err != nil {
+			return err
+		}
+		log.Printf("Host not found. Created %s point to %s", HOST, ip)
+		return nil
 	}
 
 	if ip != record.Content {
@@ -81,9 +100,9 @@ func (api *Cloudflare) UpdateRecord(ip string) error {
 			return err
 		}
 		log.Printf("IP changed, updated to %s", ip)
-	} else {
-		log.Print("No change in IP, not updating record")
+		return nil
 	}
+	log.Print("No change in IP, not updating record")
 
 	return nil
 }

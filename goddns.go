@@ -13,8 +13,18 @@ import (
 	"time"
 )
 
+const (
+	ipAPI1 = "http://ip.3322.org" // return only ip
+	ipAPI2 = "http://ip.sb"       // return only ip
+	// https://api-ipv4.ip.sb/ip
+	ipAPI3 = "https://checkip.amazonaws.com"        // return only ip
+	ipAPI4 = "http://myip.ipip.net"                 // return "当前 IP：183.x.y.z 来自于：中国 XY X州  电信"
+	ipAPI5 = "http://ip-api.com/json/?fields=query" // json
+	// more ...
+)
+
 func checkIP() (string, error) {
-	rsp, err := http.Get("https://checkip.amazonaws.com")
+	rsp, err := http.Get(ipAPI3)
 	if err != nil {
 		return "", err
 	}
